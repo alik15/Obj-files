@@ -1,7 +1,9 @@
 # Obj-files
 Aimed at manipulating object files from the command line.
 
-There are 2 major parts of .obj files
+While there are lots of parts of an OBJ file we shall only be dealing with 2 main parts of .obj file
+
+
 ## 1. Vertices
 There are 3 different types of vertices
 
