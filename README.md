@@ -7,9 +7,9 @@ While there are lots of parts of an OBJ file we shall only be dealing with 2 mai
 ## 1. Vertices
 There are 3 different types of vertices
 
-### V - Geometric Vertices
-### Vt - Texture Vertices  
-### Vn - Vertex Normals
+#### V - Geometric Vertices
+#### Vt - Texture Vertices  
+#### Vn - Vertex Normals
 
 ## 2. Faces
 
