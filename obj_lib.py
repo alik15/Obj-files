@@ -1,6 +1,9 @@
 # wavefront.py
+from ast import Num
 import numpy as np
 from test import *
+
+
 class WavefrontOBJ:
     def __init__( self, default_mtl='default_mtl' ):
         self.path      = None               # path of loaded object
@@ -12,7 +15,8 @@ class WavefrontOBJ:
         self.texcoords = []                 # texture coordinates
         self.polygons  = []                 # M*Nv*3 array, Nv=# of vertices, stored as vid,tid,nid (-1 for N/A)
         self.faces     = []                 #stores all faces
-def load_obj( filename: str, count:int ,default_mtl='default_mtl', triangulate=False) -> WavefrontOBJ:
+        
+def load_obj( filename: str , max_face, default_mtl='default_mtl', triangulate=False) -> WavefrontOBJ:
     """Reads a .obj file from disk and returns a WavefrontOBJ instance
 
     Handles only very rudimentary reading and contains no error handling!
@@ -26,15 +30,30 @@ def load_obj( filename: str, count:int ,default_mtl='default_mtl', triangulate=F
     # and returns a 3-tuple where unparsed values are replaced with -1
     """def parse_vertex( vstr ):
         vals = vstr.split('//')
-        #print(vstr)
+        print(vstr)
         vid = int(vals[0]) 
         tid = int(vals[1]) if len(vals) > 1 and vals[1] else 0
         nid = int(vals[2]) if len(vals) > 2 else 0
         return (vid,tid,nid)
     """
  
+    def parse_vector( s ):
+        v1=s[0].split("//")
+        v2=s[1].split("//")
+        v3=s[2].split("//")
+        
+        v1=int(v1[0])    
+        v2=int(v2[0])
+        v3=int(v3[0])
+        
+        list1=[v1,v2,v3]
+        return list1
+    
+
 
     with open( filename, 'r' ) as objf:
+        
+        
         obj = WavefrontOBJ(default_mtl=default_mtl)
         obj.path = filename
         cur_mat = obj.mtls.index(default_mtl)
@@ -72,6 +91,14 @@ def load_obj( filename: str, count:int ,default_mtl='default_mtl', triangulate=F
                 if toks[1] not in obj.mtls:
                     obj.mtls.append(toks[1])
                 cur_mat = obj.mtls.index( toks[1] )
+        
+        for i in range (len(obj.polygons)):
+                j=0
+                while(j<3):
+                    obj.polygons[i][j]+=max_face
+                    j+=1
+                                 
+        print(max_face)
         return obj
 
 def save_obj( obj: WavefrontOBJ, filename: str ):
@@ -81,6 +108,9 @@ def save_obj( obj: WavefrontOBJ, filename: str ):
 
     """
     with open( filename, 'a' ) as ofile:
+        ofile.write("o B"+'\n')
+        
+        
         #for mlib in obj.mtllibs:
         #    ofile.write('mtllib {}\n'.format(mlib))
         for vtx in obj.vertices:
@@ -95,7 +125,7 @@ def save_obj( obj: WavefrontOBJ, filename: str ):
         cur_mat = -1
         
         for face in obj.polygons:
-            print(face)
+            #print(face)
             ofile.write('f '+' '.join (['{}'.format(f) for f in face])+'\n')
         """
         for pid in poly_idx:
@@ -111,4 +141,14 @@ def save_obj( obj: WavefrontOBJ, filename: str ):
             ofile.write( pstr+'\n')
         """
 
+
+
+           
+#Function for stroing multiple obj files in one
+
+#Function for rotating Obj file given angle
+
+#Function for transforming Obj file given plane and face ???
+
+#Add randomised material applier
 
