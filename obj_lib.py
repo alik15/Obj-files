@@ -140,10 +140,26 @@ def save_obj( obj: WavefrontOBJ, filename: str ):
                 pstr += vstr
             ofile.write( pstr+'\n')
         """
-
-
-
-           
+def rotate_obj( filename: str , max_face, angle_x, angle_y,angle_z, default_mtl='default_mtl', triangulate=False ) -> WavefrontOBJ:
+    def parse_vector( s ):
+        v1=s[0].split("//")
+        v2=s[1].split("//")
+        v3=s[2].split("//")
+        #angle_x,angle_y,angle_z are inputs 
+        #which tell amount of rotation in each specific axis
+        #then we multiply our vertcies with the transformation matrix
+        # for rotation in each matrix
+        v1=int(v1[0])    
+        v2=int(v2[0])
+        v3=int(v3[0])
+        list1=[v1,v2,v3]
+        r_x =[[1,0,0],[0,np.cos(angle_x),-np.sin(angle_x)], [0,np.sin(angle_x),np.cos(angle_x)]]
+        r_y = [[np.cos(angle_y),0,np.sin(angle_y)],[0,1,0], [-np.sin(angle_y),0,np.cos(angle_y)]]
+        r_z = [[np.cos(angle_z),-np.sin(angle_z),0],[np.sin(angle_z),np.cos(angle_z),0], [0,0,1]]
+        rotate_x = np.dot(list1, r_x)
+        rotate_y = np.dot(list1, r_y)
+        rotate_z = np.dot(list1, r_z)
+        return list1     
 #Function for stroing multiple obj files in one
 
 #Function for rotating Obj file given angle
