@@ -42,7 +42,11 @@ Right now, the class dealing with .mtl files can read and store the various valu
 
 ## To Do:
 -convert string to int, so that they can be manipulated
+
 -make auxilliary functions to change the different parameters by own choice or at random
+
 -save the changed parameters to a new .mtl file
+
 -test this and the rotation and translation function
+
 Can find more detail in the following link : https://web.cse.ohio-state.edu/~shen.94/581/Site/Lab3_files/Labhelp_Obj_parser.htm
