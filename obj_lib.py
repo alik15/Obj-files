@@ -93,7 +93,7 @@ class WavefrontOBJ:
                 #the object has 6 additional parameters
                 # angles for rotation along x,y,z axis
                 # and value for translation x , y , or z direction
-                a = [self.rotate_ob(toks[1:], 45,45,45, 10,10,-5)]
+                a = [rotate_obj(toks[1:], 45,45,45, 10,10,-5)]
                 
                 poly=a[0]
               
@@ -124,7 +124,7 @@ class WavefrontOBJ:
         print(max_face)
         return obj
 
-def save_obj( obj: WavefrontOBJ, filename: str ):
+    def save_obj( obj: WavefrontOBJ, filename: str ):
     """Saves a WavefrontOBJ object to a file
 
     Warning: Contains no error checking!
@@ -163,30 +163,6 @@ def save_obj( obj: WavefrontOBJ, filename: str ):
                 pstr += vstr
             ofile.write( pstr+'\n')
         """
-def rotate_obj( s, angle_x = 0, angle_y = 0,angle_z= 0, trans_x = 0, trans_y = 0, trans_z = 0 ):
-        v1=s[0].split("//") # x-cord
-        v2=s[1].split("//") # y- cord
-        v3=s[2].split("//") # z- cord
-        #angle_x,angle_y,angle_z are inputs 
-        #which tell amount of rotation in each specific axis
-        #then we multiply our vertcies with the transformation matrix
-        # for rotation in each matrix
-        v1=int(v1[0])
-        v1 += trans_x
-        v2=int(v2[0])
-        v2 += trans_y
-        v3=int(v3[0])
-        v3+= trans_z
-        list1=[v1,v2,v3]
-        r_x =[[1,0,0],[0,np.cos(angle_x),-np.sin(angle_x)], [0,np.sin(angle_x),np.cos(angle_x)]]
-        r_y = [[np.cos(angle_y),0,np.sin(angle_y)],[0,1,0], [-np.sin(angle_y),0,np.cos(angle_y)]]
-        r_z = [[np.cos(angle_z),-np.sin(angle_z),0],[np.sin(angle_z),np.cos(angle_z),0], [0,0,1]]
-        rotate_x = np.dot(list1, r_x)
-        rotate_y = np.dot(list1, r_y)
-        rotate_z = np.dot(list1, r_z)
-        return list1
-    # complete this so we know what to do with the saved list of vertices
-    #list 1 is basically the 3d verter points after being rotated 
 
 
 # CLASS FOR MATERIAL OBJECT FILES
