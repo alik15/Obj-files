@@ -31,13 +31,21 @@ An example of an .mtl file:
 An example .mtl file
 
 �
+
 newmtl dolph01
+
 Ka 0.4000 0.4000 0.4000
+
 Kd 0.0000 0.2000 1.0000
+
 Ks 0.5000 0.5000 0.5000
+
 illum 2
+
 Ns 60.0000
+
 �
+
 Right now, the class dealing with .mtl files can read and store the various values in a list as strings
 
 ## To Do:
