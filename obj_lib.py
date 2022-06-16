@@ -190,32 +190,66 @@ class mtlobj:
                 lines[line].strip("\n")
                 ## right now values are being stored as strings,
                 #if we want to manipulate, will need to convert to floats
+                 if lines[line][0] == "n" and lines[line][1] == "e":
+                    self.name.append(lines[line][:-1])
                 if lines[line][0] == 'N' and lines[line][1] == 's':
                     val = lines[line][3:-1]
                     self.Ns.append(val)
                 if lines[line][0] == "N" and lines[line][1] == "i":
-                    self.Ni.append(lines[line][3:-1])
-                
+                    self.Ni.append([lines[line][3:-1]])
                 if lines[line][0] == "d":
-                    self.d.append(lines[line][2:-1])
-                
+                    self.d.append([lines[line][2:-1]])
                 if lines[line][0] == "K" and lines[line][1] == "a":
-                    self.Ka.append(lines[line][3:-1])
+                    self.Ka.append([lines[line][3:-1]])
                 if lines[line][0] == "K" and lines[line][1] == "s":
-                    self.Ks.append(lines[line][3:-1])
+                    self.Ks.append([lines[line][3:-1]])
                 if lines[line][0] == "K" and lines[line][1] == "e":
-                    self.Ke.append(lines[line][3:-1])
+                    self.Ke.append([lines[line][3:-1]])
                 if lines[line][0] == "K" and lines[line][1] == "d":
-                    self.Kd.append(lines[line][3:-1])
+                    self.Kd.append([lines[line][3:-1]])
                 if lines[line][0] == "m" and lines[line][1] == "a":
-                    self.map_Kd.append(lines[line][7:-1])
-                if lines[line][0] == "n" and lines[line][1] == "e":
-                    self.name.append(lines[line][:-1])
+                    self.map_Kd.append([lines[line][7:-1]])
                 if lines[line][0] == "i":
-                    self.illum.append(lines[line][6:-1])
+                    self.illum.append([lines[line][6:-1]])
+
+    def save_mtl(self, name: str):
+    """Saves values in material file to new file
+    Warning: Contains no error checking
+    """
+    # store the values in a string in the right order, and write it to the file
+    #TO-Do, add the labels within the string such as Ka, Ks etc
+    filename = name
+    with open( filename, 'a' ) as ofile:
+        for i in range len(self.name):
+            material =  "\n" + str(self.name[i] + "\n" self.Ns[i] + "\n" + self.Ka[i] + "\n" self.Kd[i] + "\n" + self.Ks[i] + "\n" + self.Ke[i] + "\n"  + self.Ni[i]+ "\n" + self.d[i] + "\n" + self.illum[i]+ "\n" +self.map_Kd[i] + "\n"
+            ofile.write(material)
+        #helper functions, allow user to change value of texture parameters
+        # have to enter the number in array of material file which they want to access 
+    def ambient_clr(self, num: int, r:int,g:int,b:int):
+        self.Ka[num][0] = r
+        self.Ka[num][1] = r
+        self.Ka[num][2] = r
         
+    def diffuse_clr(self, num: int, r:int,g:int,b:int):
+        self.Kd[num][0] = r
+        self.Kd[num][1] = r
+        self.Kd[num][2] = r
         
-        
+    def spec_clr(self, num: int, r:int,g:int,b:int):
+        self.Ks[num][0] = r
+        self.Ks[num][1] = r
+        self.Ks[num][2] = r
+
+    def illum(self, num:int, illumination: int):
+        self.illum[num] = illumination
+    def shine(self, num:int, shine: int):
+        self.Ns[num] = shine
+
+    def transparency(self, num:int, Tr: int):
+        self.d[num] = Tr
+
+    def texture(self, path: str, num: int):
+        self.map_Ka[num] = path
         
 
         
