@@ -292,3 +292,9 @@ class mtlobj:
         else:
             self.name[num] = str(path)
         
+
+
+           
+
+
+
