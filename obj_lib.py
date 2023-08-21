@@ -15,7 +15,8 @@ class WavefrontOBJ:
         self.texcoords = []                 # texture coordinates
         self.polygons  = []                 # M*Nv*3 array, Nv=# of vertices, stored as vid,tid,nid (-1 for N/A)
         self.faces     = []                 #stores all faces
-        
+        self.name      = "null" 
+        self.usemtl    = 
 def load_obj( filename: str , max_face, default_mtl='default_mtl', triangulate=False) -> WavefrontOBJ:
     """Reads a .obj file from disk and returns a WavefrontOBJ instance
 

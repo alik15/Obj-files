@@ -27,7 +27,7 @@ for obj in objects:
        print("oo",max_face)
        obj = load_obj("source/"+obj,max_face)
        
-       
+       print(obj.mtllibs) 
        max_face=np.max(obj.polygons)
        
        
